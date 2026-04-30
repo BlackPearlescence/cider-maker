@@ -1,0 +1,50 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+enum AppleCategory{
+    CULINARY        // Honeycrisp, Gala
+    HERITAGE_CIDER  // Kingston Black, Dabinett
+    CRABAPPLE       // Wickson, Dolgo
+}
+
+model Cultivar {
+    id          Int             @id @default(autoincrement())
+    name        String          @unique 
+    
+    // Taxonomy & Biology
+    species     String          @default("domestica") // domestica, sylvestris, etc.
+    origin      String?         // Geographic origin
+
+    // Functional Classification
+    category    AppleCategory   @default(CULINARY)
+    
+    // Scientific Stats
+    brix        Float           // Sugar (Standard: 10.0 - 25.0)
+    ph          Float           // Acidity (Standard: 3.0 - 4.5)
+    tannin      Float           // Percentage (Standard: 0.0 - 0.5)
+
+    // Asset Management
+    imageUrl    String?         // Path to the images
+    description String?         
+
+    // Relationships
+    classId     String
+    class       CiderClass      @relation(fields: [classId], references: [id])
+
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime        @updatedAt
+
+}
+
+model CiderClass {
+    id          String          @id @default(cuid())
+    name        String          @unique
+    chemistry   String
+    description String          
+    cultivars   Cultivar[]
+}
