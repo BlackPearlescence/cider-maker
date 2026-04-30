@@ -1,8 +1,4 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import { prisma } from "./prisma"
 
 const main = async () => {
     console.log("Start seeding...")
@@ -56,6 +52,7 @@ const main = async () => {
             ph: 3.5,
             tannin: 0.05,
             imageUrl: '/images/cultivars/Culinary_Honeycrisp.jpg',
+            description: "The quintessential modern culinary apple, famed for its exceptionally crisp, 'explosive' texture and honey-like sweetness. While low in tannins, its high juice yield and clean sugar profile make it a reliable base for approachable, light-bodied ciders. Its large cells provide a crispness that remains distinctive even in juice form.",
             classId: sweet.id,
         },
     ]
