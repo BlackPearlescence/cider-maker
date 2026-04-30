@@ -246,7 +246,7 @@ const main = async () => {
             brix: 16.5, 
             ph: 3.6, 
             tannin: 0.10, 
-            imageUrl: '/images/cultivars/heritage_Harrison.jpg', 
+            imageUrl: '/images/cultivars/heritage_HarrisonCampfield.jpg', 
             description: "The most famous American cider apple of the 18th century. It produces a thick, syrupy juice that creates a full-bodied, golden cider. While technically a 'Sweet', its high sugar and rich mouthfeel make it a legendary blending component.", 
             classId: sweet.id 
         },
@@ -258,7 +258,7 @@ const main = async () => {
             brix: 14.0, 
             ph: 3.7, 
             tannin: 0.08, 
-            imageUrl: '/images/cultivars/heritage_Campfield.jpg', 
+            imageUrl: '/images/cultivars/heritage_HarrisonCampfield.jpg', 
             description: "Often paired with Harrison to create the famous 'Newark Cider.' It is a smooth, sweet apple that provides a reliable sugar base and a clean fermentation profile, helping to balance the more intense tannins of crabapples.", 
             classId: sweet.id 
         },
