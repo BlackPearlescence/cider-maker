@@ -1,8 +1,29 @@
-import Image from "next/image";
 import { prisma } from "@/prisma/prisma";
 import { AppleCard } from "./components/AppleCard";
-export default async function Home() {
+import { FilterBar } from "./components/FilterBar";
+import { AppleCategory } from "@prisma/client";
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: Promise<{ query?: string; category?: string } | undefined>;
+}) {
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query ?? "";
+  const category = resolvedSearchParams?.category ?? "";
+
   const apples = await prisma.cultivar.findMany({
+    where: {
+      AND: [
+        {
+          OR: [
+            { name: { contains: query, mode: "insensitive" } },
+            { origin: { contains: query, mode: "insensitive" } },
+          ],
+        },
+        category ? { category: category as AppleCategory } : {},
+      ],
+    },
     include: { class: true },
     orderBy: { name: "asc" },
   });
@@ -20,6 +41,8 @@ export default async function Home() {
           Pomological Database & Blender
         </p>
       </header>
+
+      <FilterBar />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {apples.map((apple) => (
