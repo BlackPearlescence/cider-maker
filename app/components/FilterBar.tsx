@@ -30,6 +30,18 @@ export const FilterBar = () => {
     replace(`${pathname}?${params.toString()}`);
   };
 
+  const toggleTasteClass = (tasteClass: string) => {
+    const params = new URLSearchParams(searchParams);
+    const current = params.get("class");
+
+    if (current === tasteClass) {
+      params.delete("class");
+    } else {
+      params.set("class", tasteClass);
+    }
+    replace(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <div className="mb-12 space-y-6">
       <div className="relative">
@@ -56,6 +68,52 @@ export const FilterBar = () => {
             {cat.replace("_", " ")}
           </button>
         ))}
+      </div>
+      <div className="flex gap-4 text-[10px] font-bold tracking-widest">
+        <button
+          key={"Sweet"}
+          onClick={() => toggleTasteClass("Sweet")}
+          className={`px-4 py-2 border transition-all ${
+            searchParams.get("class") === "Sweet"
+              ? "bg-[#d4a574] text-white border-[#d4a574]"
+              : "border-[#d4a574]/20 text-[#d4a574] hover:border-[#d4a574]/60"
+          }`}
+        >
+          Sweet
+        </button>
+        <button
+          key={"Sharp"}
+          onClick={() => toggleTasteClass("Sharp")}
+          className={`px-4 py-2 border transition-all ${
+            searchParams.get("class") === "Sharp"
+              ? "bg-[#c0392b] text-white border-[#c0392b]"
+              : "border-[#c0392b]/20 text-[#c0392b] hover:border-[#c0392b]/60"
+          }`}
+        >
+          Sharp
+        </button>
+        <button
+          key={"Bittersweet"}
+          onClick={() => toggleTasteClass("Bittersweet")}
+          className={`px-4 py-2 border transition-all ${
+            searchParams.get("class") === "Bittersweet"
+              ? "bg-[#8b4513] text-white border-[#8b4513]"
+              : "border-[#8b4513]/20 text-[#8b4513] hover:border-[#8b4513]/60"
+          }`}
+        >
+          Bittersweet
+        </button>
+        <button
+          key={"Bittersharp"}
+          onClick={() => toggleTasteClass("Bittersharp")}
+          className={`px-4 py-2 border transition-all ${
+            searchParams.get("class") === "Bittersharp"
+              ? "bg-[#6a0dad] text-white border-[#6a0dad]"
+              : "border-[#6a0dad]/20 text-[#6a0dad] hover:border-[#6a0dad]/60"
+          }`}
+        >
+          Bittersharp
+        </button>
       </div>
     </div>
   );
