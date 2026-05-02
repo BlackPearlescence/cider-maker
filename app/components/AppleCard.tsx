@@ -7,7 +7,7 @@ export const AppleCard = ({
   appleSpecies,
   appleCategory,
   appleImage,
-  appleClass,
+  appleFlavor,
 }: AppleCardProps) => {
   return (
     <div
@@ -33,16 +33,16 @@ export const AppleCard = ({
         <div className="flex gap-2 mt-3">
           <span
             className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded-full ${
-              appleClass === "Sharp"
+              appleFlavor === "Sharp"
                 ? "bg-red-100 text-red-800"
-                : appleClass === "Sweet"
+                : appleFlavor === "Sweet"
                   ? "bg-yellow-100 text-yellow-800"
-                  : appleClass === "Bittersweet"
+                  : appleFlavor === "Bittersweet"
                     ? "bg-orange-100 text-orange-800"
                     : "bg-purple-100 text-purple-800"
             }`}
           >
-            {appleClass}
+            {appleFlavor}
           </span>
         </div>
       </div>

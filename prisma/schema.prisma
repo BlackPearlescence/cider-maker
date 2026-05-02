@@ -33,15 +33,15 @@ model Cultivar {
     description String?         
 
     // Relationships
-    classId     String
-    class       CiderClass      @relation(fields: [classId], references: [id])
+    flavorId     String
+    flavor       CiderFlavorClass      @relation(fields: [flavorId], references: [id])
 
     createdAt   DateTime        @default(now())
     updatedAt   DateTime        @updatedAt
 
 }
 
-model CiderClass {
+model CiderFlavorClass {
     id          String          @id @default(cuid())
     name        String          @unique
     chemistry   String

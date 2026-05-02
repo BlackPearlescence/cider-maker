@@ -6,11 +6,14 @@ import { AppleCategory } from "@prisma/client";
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: Promise<{ query?: string; category?: string } | undefined>;
+  searchParams?: Promise<
+    { query?: string; category?: string; flavor?: string } | undefined
+  >;
 }) {
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query ?? "";
   const category = resolvedSearchParams?.category ?? "";
+  const flavor = resolvedSearchParams?.flavor ?? "";
 
   const apples = await prisma.cultivar.findMany({
     where: {
@@ -22,9 +25,10 @@ export default async function Home({
           ],
         },
         category ? { category: category as AppleCategory } : {},
+        flavor ? { flavor: { name: flavor } } : {},
       ],
     },
-    include: { class: true },
+    include: { flavor: true },
     orderBy: { name: "asc" },
   });
 
@@ -52,7 +56,7 @@ export default async function Home({
             appleSpecies={apple.species}
             appleCategory={apple.category}
             appleImage={apple.imageUrl || "https://placehold.co/600x400"}
-            appleClass={apple.class.name}
+            appleFlavor={apple.flavor.name}
           />
         ))}
       </div>

@@ -4,5 +4,5 @@ export type AppleCardProps = {
   appleSpecies: string;
   appleCategory: string;
   appleImage: string;
-  appleClass: string;
+  appleFlavor: string;
 };
