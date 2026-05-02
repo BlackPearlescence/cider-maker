@@ -1,12 +1,18 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 export const FilterBar = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+
+  // Slider States
+  const [brix, setBrix] = useState(10);
+  const [tannin, setTannin] = useState(0.05);
+  const [pH, setpH] = useState(3);
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
@@ -114,6 +120,41 @@ export const FilterBar = () => {
         >
           Bittersharp
         </button>
+      </div>
+
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-2">
+          <span>Brix</span>
+          <input
+            type="range"
+            step="0.1"
+            min="10"
+            max="25"
+            value={brix}
+            className="h-2 w-full rounded-full accent-[#d4a574] bg-[#fef7e6]"
+            onChange={(e) => setBrix(parseFloat(e.currentTarget.value))}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <span>Tannin</span>
+          <input
+            type="range"
+            step="0.01"
+            min="0.01"
+            max="0.4"
+            className="h-2 w-full rounded-full accent-[#8b4513] bg-[#f5f0e6]"
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <span>pH</span>
+          <input
+            type="range"
+            step="0.1"
+            min="3"
+            max="4.5"
+            className="h-2 w-full rounded-full accent-[#6a0dad] bg-[#f0e6ff]"
+          />
+        </div>
       </div>
     </div>
   );
