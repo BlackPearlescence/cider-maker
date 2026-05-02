@@ -1,5 +1,6 @@
 "use client";
 
+import * as Slider from "@radix-ui/react-slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
@@ -11,10 +12,10 @@ export const FilterBar = () => {
 
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
-  // Slider States
-  const [brix, setBrix] = useState(10);
-  const [tannin, setTannin] = useState(0.01);
-  const [pH, setpH] = useState(3);
+  // Slider States (min, max)
+  const [brixRange, setBrixRange] = useState([10.0, 25.0]);
+  const [tanninRange, setTanninRange] = useState([0.01, 0.4]);
+  const [pHRange, setPHRange] = useState([3.0, 4.5]);
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
@@ -49,6 +50,13 @@ export const FilterBar = () => {
     }
     replace(`${pathname}?${params.toString()}`);
   };
+
+  const handleBrixRange = useDebouncedCallback((range: number[]) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("brixMin", range[0].toString());
+    params.set("brixMax", range[1].toString());
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
 
   return (
     <div className="mb-12 space-y-6">
@@ -131,9 +139,9 @@ export const FilterBar = () => {
           checked={showAdvancedFilters}
           onChange={(e) => {
             setShowAdvancedFilters(e.currentTarget.checked);
-            setBrix(10);
-            setTannin(0.01);
-            setpH(3);
+            setBrixRange([10, 25]);
+            setTanninRange([0.01, 0.4]);
+            setPHRange([3, 4.5]);
           }}
         />
       </div>
@@ -141,40 +149,65 @@ export const FilterBar = () => {
       {showAdvancedFilters ? (
         <div className="flex flex-row gap-4">
           <div className="flex flex-col gap-2">
-            <span>Brix</span>
-            <input
-              type="range"
-              step="0.1"
-              min="10"
-              max="25"
-              value={brix}
-              onChange={(e) => setBrix(parseFloat(e.currentTarget.value))}
-              className="h-2 w-full rounded-full accent-[#d4a574] bg-[#fef7e6]"
-            />
+            <span>
+              Brix: {brixRange[0]} - {brixRange[1]}
+            </span>
+            <Slider.Root
+              value={brixRange}
+              onValueChange={(range) => {
+                setBrixRange(range);
+                handleBrixRange(range);
+              }}
+              min={10}
+              max={25}
+              step={0.1}
+              className="relative flex items-center select-none touch-none w-full h-5"
+            >
+              <Slider.Track className="bg-[#fef7e6] relative grow rounded-full h-2">
+                <Slider.Range className="absolute bg-[#d4a574] rounded-full h-full" />
+              </Slider.Track>
+              <Slider.Thumb className="block w-5 h-5 bg-[#d4a574] border-2 border-white rounded-full shadow" />
+              <Slider.Thumb className="block w-5 h-5 bg-[#d4a574] border-2 border-white rounded-full shadow" />
+            </Slider.Root>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <span>
+              Tannin: {tanninRange[0]} - {tanninRange[1]}
+            </span>
+            <Slider.Root
+              value={tanninRange}
+              onValueChange={setTanninRange}
+              min={0.01}
+              max={0.4}
+              step={0.01}
+              className="relative flex items-center select-none touch-none w-full h-5"
+            >
+              <Slider.Track className="bg-[#f5f0e6] relative grow rounded-full h-2">
+                <Slider.Range className="absolute bg-[#8b4513] rounded-full h-full" />
+              </Slider.Track>
+              <Slider.Thumb className="block w-5 h-5 bg-[#8b4513] border-2 border-white rounded-full shadow" />
+              <Slider.Thumb className="block w-5 h-5 bg-[#8b4513] border-2 border-white rounded-full shadow" />
+            </Slider.Root>
           </div>
           <div className="flex flex-col gap-2">
-            <span>Tannin</span>
-            <input
-              type="range"
-              step="0.01"
-              min="0.01"
-              max="0.4"
-              value={tannin}
-              onChange={(e) => setTannin(parseFloat(e.currentTarget.value))}
-              className="h-2 w-full rounded-full accent-[#8b4513] bg-[#f5f0e6]"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <span>pH</span>
-            <input
-              type="range"
-              step="0.1"
-              min="3"
-              max="4.5"
-              value={pH}
-              onChange={(e) => setpH(parseFloat(e.currentTarget.value))}
-              className="h-2 w-full rounded-full accent-[#6a0dad] bg-[#f0e6ff]"
-            />
+            <span>
+              pH: {pHRange[0]} - {pHRange[1]}
+            </span>
+            <Slider.Root
+              value={pHRange}
+              onValueChange={setPHRange}
+              min={3}
+              max={4.5}
+              step={0.1}
+              className="relative flex items-center select-none touch-none w-full h-5"
+            >
+              <Slider.Track className="bg-[#f0e6ff] relative grow rounded-full h-2">
+                <Slider.Range className="absolute bg-[#6a0dad] rounded-full h-full" />
+              </Slider.Track>
+              <Slider.Thumb className="block w-5 h-5 bg-[#6a0dad] border-2 border-white rounded-full shadow" />
+              <Slider.Thumb className="block w-5 h-5 bg-[#6a0dad] border-2 border-white rounded-full shadow" />
+            </Slider.Root>
           </div>
         </div>
       ) : (
