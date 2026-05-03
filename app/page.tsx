@@ -30,21 +30,37 @@ export default async function Home({
   const brixMin = rawBrixMin ? parseFloat(rawBrixMin) : undefined;
   const validBrixMin = Number.isNaN(brixMin) ? undefined : brixMin;
 
-  const brixMax = resolvedSearchParams?.brixMax ?? null;
+  const rawBrixMax = resolvedSearchParams?.brixMax;
+  const brixMax = rawBrixMax ? parseFloat(rawBrixMax) : undefined;
+  const validBrixMax = Number.isNaN(brixMax) ? undefined : brixMax;
 
-  const tanninMin = resolvedSearchParams?.tanninMin ?? null;
-  const tanninMax = resolvedSearchParams?.tanninMax ?? null;
+  const rawTanninMin = resolvedSearchParams?.tanninMin;
+  const tanninMin = rawTanninMin ? parseFloat(rawTanninMin) : undefined;
+  const validTanninMin = Number.isNaN(tanninMin) ? undefined : tanninMin;
 
-  const phMin = resolvedSearchParams?.phMin ?? null;
-  const phMax = resolvedSearchParams?.phMax ?? null;
+  const rawTanninMax = resolvedSearchParams?.tanninMax;
+  const tanninMax = rawTanninMax ? parseFloat(rawTanninMax) : undefined;
+  const validTanninMax = Number.isNaN(tanninMax) ? undefined : tanninMax;
 
-  const tanninFilter: { min?: number; max?: number } = {};
-  if (tanninMin != null) tanninFilter.min = tanninMin;
-  if (tanninMax != null) tanninFilter.max = tanninMax;
+  const rawPhMin = resolvedSearchParams?.phMin;
+  const phMin = rawPhMin ? parseFloat(rawPhMin) : undefined;
+  const validPhMin = Number.isNaN(phMin) ? undefined : phMin;
 
-  const phFilter: { min?: number; max?: number } = {};
-  if (phMin != null) phFilter.min = phMin;
-  if (phMax != null) phFilter.max = phMax;
+  const rawPhMax = resolvedSearchParams?.phMax;
+  const phMax = rawPhMax ? parseFloat(rawPhMax) : undefined;
+  const validPhMax = Number.isNaN(phMax) ? undefined : phMax;
+
+  const brixFilter: { gte?: number; lte?: number } = {};
+  if (validBrixMin !== undefined) brixFilter.gte = validBrixMin;
+  if (validBrixMax !== undefined) brixFilter.lte = validBrixMax;
+
+  const tanninFilter: { gte?: number; lte?: number } = {};
+  if (validTanninMin !== undefined) tanninFilter.gte = validTanninMin;
+  if (validTanninMax !== undefined) tanninFilter.lte = validTanninMax;
+
+  const phFilter: { gte?: number; lte?: number } = {};
+  if (validPhMin !== undefined) phFilter.gte = validPhMin;
+  if (validPhMax !== undefined) phFilter.lte = validPhMax;
 
   const apples = await prisma.cultivar.findMany({
     where: {
@@ -57,7 +73,9 @@ export default async function Home({
         },
         category ? { category: category as AppleCategory } : {},
         flavor ? { flavor: { name: flavor } } : {},
-        validBrixMin !== undefined ? { brix: { gte: validBrixMin } } : {},
+        Object.keys(brixFilter).length > 0 ? { brix: brixFilter } : {},
+        Object.keys(tanninFilter).length > 0 ? { tannin: tanninFilter } : {},
+        Object.keys(phFilter).length > 0 ? { ph: phFilter } : {},
       ],
     },
     include: { flavor: true },
