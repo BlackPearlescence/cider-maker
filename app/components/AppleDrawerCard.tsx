@@ -1,17 +1,31 @@
 import Image from "next/image";
 import { AppleCardProps } from "../types";
+import { useBatchStore } from "../stores/useBatchStore";
 
 export const AppleDrawerCard = ({
-  key,
+  appleId,
   appleName,
   appleSpecies,
   appleCategory,
   appleImage,
   appleFlavor,
 }: AppleCardProps) => {
+  const removeApple = useBatchStore((state) => state.removeApple);
+
+  const isAdded = useBatchStore((state) =>
+    state.apples.some((apple) => apple.id === appleId),
+  );
+
+  const handleAppleRemove = () => {
+    if (isAdded) {
+      removeApple(appleId);
+      return;
+    }
+  };
+
   return (
     <div
-      key={key}
+      key={appleId}
       className="group bg-white border border-[#2d5a27]/10 p-4 hover:border-[#2d5a27]/40 transition-all shadow-sm"
     >
       <div className="relative aspect-square mb-4 overflow-hidden bg=[#f9f9f9]">
@@ -47,7 +61,10 @@ export const AppleDrawerCard = ({
         </div>
       </div>
 
-      <button className="w-full mt-6 py-2 border border-[#2d5a27] text-[#2d5a27] hover:bg-[#2d5a27] hover:text-white transition-colors text-sm font-bold uppercase tracking-widest">
+      <button
+        className="w-full mt-6 py-2 border border-[#2d5a27] text-[#2d5a27] hover:bg-[#2d5a27] hover:text-white transition-colors text-sm font-bold uppercase tracking-widest"
+        onClick={handleAppleRemove}
+      >
         Remove
       </button>
     </div>

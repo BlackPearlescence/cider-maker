@@ -2,6 +2,7 @@ import { prisma } from "@/prisma/prisma";
 import { AppleCard } from "./components/AppleCard";
 import { FilterBar } from "./components/FilterBar";
 import { AppleCategory } from "@prisma/client";
+import { BottomDrawer } from "./components/BottomDrawer";
 
 export default async function Home({
   searchParams,
@@ -115,6 +116,7 @@ export default async function Home({
           />
         ))}
       </div>
+      <BottomDrawer />
     </main>
   );
 }

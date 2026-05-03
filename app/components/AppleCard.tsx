@@ -42,6 +42,8 @@ export const AppleCard = ({
       name: appleName,
       imageUrl: appleImage,
       category: appleCategory,
+      species: appleSpecies,
+      origin: appleOrigin ? appleOrigin : "",
       flavor: appleFlavor,
       brix: appleBrix,
       ph: applepH,

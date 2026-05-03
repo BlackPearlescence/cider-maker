@@ -5,6 +5,8 @@ export type BatchApple = {
   name: string;
   imageUrl: string | null;
   category: string;
+  species: string;
+  origin: string;
   flavor: string;
   brix: number;
   ph: number;
