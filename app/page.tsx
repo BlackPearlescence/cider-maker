@@ -104,9 +104,13 @@ export default async function Home({
             key={apple.id}
             appleName={apple.name}
             appleSpecies={apple.species}
+            appleOrigin={apple.origin}
             appleCategory={apple.category}
             appleImage={apple.imageUrl || "https://placehold.co/600x400"}
             appleFlavor={apple.flavor.name}
+            appleBrix={apple.brix}
+            appleTannin={apple.tannin}
+            applepH={apple.ph}
           />
         ))}
       </div>

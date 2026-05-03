@@ -1,14 +1,25 @@
 import Image from "next/image";
 import { AppleCardProps } from "../types";
+import { useBatchStore } from "../stores/useBatchStore";
 
 export const AppleCard = ({
   key,
   appleName,
   appleSpecies,
+  appleOrigin,
   appleCategory,
   appleImage,
   appleFlavor,
+  appleBrix,
+  appleTannin,
+  applepH
 }: AppleCardProps) => {
+  const handleAddToBatch = () => {
+    const appleToAdd = {
+
+    }
+    const addApple = useBatchStore(())
+  };
   return (
     <div
       key={key}
@@ -47,7 +58,10 @@ export const AppleCard = ({
         </div>
       </div>
 
-      <button className="w-full mt-6 py-2 border border-[#2d5a27] text-[#2d5a27] hover:bg-[#2d5a27] hover:text-white transition-colors text-sm font-bold uppercase tracking-widest">
+      <button
+        className="w-full mt-6 py-2 border border-[#2d5a27] text-[#2d5a27] hover:bg-[#2d5a27] hover:text-white transition-colors text-sm font-bold uppercase tracking-widest"
+        onClick={(e) => handleAddToBatch(e)}
+      >
         Add to Batch
       </button>
     </div>
