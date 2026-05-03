@@ -102,6 +102,7 @@ export default async function Home({
         {apples.map((apple) => (
           <AppleCard
             key={apple.id}
+            appleId={apple.id}
             appleName={apple.name}
             appleSpecies={apple.species}
             appleOrigin={apple.origin}

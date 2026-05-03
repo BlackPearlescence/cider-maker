@@ -1,5 +1,6 @@
 export type AppleCardProps = {
   key: number;
+  appleId: number;
   appleName: string;
   appleSpecies: string;
   appleOrigin: string | null;

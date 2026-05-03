@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import { AppleCardProps } from "../types";
 import { useBatchStore } from "../stores/useBatchStore";
+import { useEffect } from "react";
 
 export const AppleCard = ({
   key,
+  appleId,
   appleName,
   appleSpecies,
   appleOrigin,
@@ -12,14 +16,40 @@ export const AppleCard = ({
   appleFlavor,
   appleBrix,
   appleTannin,
-  applepH
+  applepH,
 }: AppleCardProps) => {
-  const handleAddToBatch = () => {
-    const appleToAdd = {
+  const addApple = useBatchStore((state) => state.addApple);
+  const removeApple = useBatchStore((state) => state.removeApple);
 
+  // Apple Batch State
+  const apples = useBatchStore((state) => state.apples);
+
+  const isAdded = useBatchStore((state) =>
+    state.apples.some((apple) => apple.id === appleId),
+  );
+
+  useEffect(() => {
+    console.log(apples);
+  }, [apples]);
+
+  const handleBatchClick = () => {
+    if (isAdded) {
+      removeApple(appleId);
+      return;
     }
-    const addApple = useBatchStore(())
+    addApple({
+      id: appleId,
+      name: appleName,
+      imageUrl: appleImage,
+      category: appleCategory,
+      flavor: appleFlavor,
+      brix: appleBrix,
+      ph: applepH,
+      tannin: appleTannin,
+      description: "",
+    });
   };
+
   return (
     <div
       key={key}
@@ -60,9 +90,9 @@ export const AppleCard = ({
 
       <button
         className="w-full mt-6 py-2 border border-[#2d5a27] text-[#2d5a27] hover:bg-[#2d5a27] hover:text-white transition-colors text-sm font-bold uppercase tracking-widest"
-        onClick={(e) => handleAddToBatch(e)}
+        onClick={handleBatchClick}
       >
-        Add to Batch
+        {isAdded ? "Remove from Batch" : "Add to Batch"}
       </button>
     </div>
   );
