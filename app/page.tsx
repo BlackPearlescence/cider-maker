@@ -7,13 +7,35 @@ export default async function Home({
   searchParams,
 }: {
   searchParams?: Promise<
-    { query?: string; category?: string; flavor?: string } | undefined
+    | {
+        query?: string;
+        category?: string;
+        flavor?: string;
+        brixMin?: number;
+        brixMax?: number;
+        tanninMin?: number;
+        tanninMax?: number;
+        phMin?: number;
+        phMax?: number;
+      }
+    | undefined
   >;
 }) {
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query ?? "";
   const category = resolvedSearchParams?.category ?? "";
   const flavor = resolvedSearchParams?.flavor ?? "";
+  const brixMin = resolvedSearchParams?.brixMin ?? "";
+  const brixMax = resolvedSearchParams?.brixMax ?? "";
+
+  const tanninMin = resolvedSearchParams?.tanninMin ?? "";
+  const tanninMax = resolvedSearchParams?.tanninMax ?? "";
+
+  const phMin = resolvedSearchParams?.phMin ?? "";
+  const phMax = resolvedSearchParams?.phMax ?? "";
+
+  const brixFilter: { min?: number; max?: number } = {};
+  if (brixMin != null) brixFilter.min = brixMin;
 
   const apples = await prisma.cultivar.findMany({
     where: {

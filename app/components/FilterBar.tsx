@@ -51,10 +51,37 @@ export const FilterBar = () => {
     replace(`${pathname}?${params.toString()}`);
   };
 
+  const clearAdvancedParams = () => {
+    const params = new URLSearchParams(searchParams);
+
+    params.delete("brixMin");
+    params.delete("brixMax");
+    params.delete("tanninMin");
+    params.delete("tanninMax");
+    params.delete("phMin");
+    params.delete("phMax");
+
+    replace(`${pathname}?${params.toString()}`);
+  };
+
   const handleBrixRange = useDebouncedCallback((range: number[]) => {
     const params = new URLSearchParams(searchParams);
     params.set("brixMin", range[0].toString());
     params.set("brixMax", range[1].toString());
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
+
+  const handleTanninRange = useDebouncedCallback((range: number[]) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("tanninMin", range[0].toString());
+    params.set("tanninMax", range[1].toString());
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
+
+  const handlePhRange = useDebouncedCallback((range: number[]) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("pHMin", range[0].toString());
+    params.set("pHMax", range[1].toString());
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
@@ -142,6 +169,10 @@ export const FilterBar = () => {
             setBrixRange([10, 25]);
             setTanninRange([0.01, 0.4]);
             setPHRange([3, 4.5]);
+
+            if (e.currentTarget.checked === false) {
+              clearAdvancedParams();
+            }
           }}
         />
       </div>
@@ -177,7 +208,10 @@ export const FilterBar = () => {
             </span>
             <Slider.Root
               value={tanninRange}
-              onValueChange={setTanninRange}
+              onValueChange={(range) => {
+                setTanninRange(range);
+                handleTanninRange(range);
+              }}
               min={0.01}
               max={0.4}
               step={0.01}
@@ -196,7 +230,10 @@ export const FilterBar = () => {
             </span>
             <Slider.Root
               value={pHRange}
-              onValueChange={setPHRange}
+              onValueChange={(range) => {
+                setPHRange(range);
+                handlePhRange(range);
+              }}
               min={3}
               max={4.5}
               step={0.1}
