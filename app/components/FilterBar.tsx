@@ -2,7 +2,7 @@
 
 import * as Slider from "@radix-ui/react-slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 export const FilterBar = () => {
@@ -16,6 +16,26 @@ export const FilterBar = () => {
   const [brixRange, setBrixRange] = useState([10.0, 25.0]);
   const [tanninRange, setTanninRange] = useState([0.01, 0.4]);
   const [pHRange, setPHRange] = useState([3.0, 4.5]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    if (
+      params.has("brixMin") ||
+      params.has("brixMax") ||
+      params.has("tanninMin") ||
+      params.has("tanninMax") ||
+      params.has("pHMin") ||
+      params.has("pHMax")
+    ) {
+      params.delete("brixMin");
+      params.delete("brixMax");
+      params.delete("tanninMin");
+      params.delete("tanninMax");
+      params.delete("pHMin");
+      params.delete("pHMax");
+      replace(`${pathname}?${params.toString()}`);
+    }
+  }, []);
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
@@ -80,8 +100,8 @@ export const FilterBar = () => {
 
   const handlePhRange = useDebouncedCallback((range: number[]) => {
     const params = new URLSearchParams(searchParams);
-    params.set("pHMin", range[0].toString());
-    params.set("pHMax", range[1].toString());
+    params.set("phMin", range[0].toString());
+    params.set("phMax", range[1].toString());
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
@@ -246,6 +266,17 @@ export const FilterBar = () => {
               <Slider.Thumb className="block w-5 h-5 bg-[#6a0dad] border-2 border-white rounded-full shadow" />
             </Slider.Root>
           </div>
+          <button
+            onClick={() => {
+              setBrixRange([10, 25]);
+              setTanninRange([0.01, 0.4]);
+              setPHRange([3, 4.5]);
+              clearAdvancedParams();
+            }}
+            className="px-4 py-2 border border-[#2d5a27]/20 text-[#2d5a27] transition-all hover:bg-[#2d5a27] hover:text-white hover:border-[#2d5a27]"
+          >
+            Reset
+          </button>
         </div>
       ) : (
         ""
