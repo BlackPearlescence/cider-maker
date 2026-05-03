@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useBatchStore } from "../stores/useBatchStore";
 import { AppleDrawerCard } from "./AppleDrawerCard";
+import Link from "next/link";
 
 export const BottomDrawer = () => {
   const [isBatchOpen, setIsBatchOpen] = useState(false);
@@ -29,9 +30,12 @@ export const BottomDrawer = () => {
               />
             ))}
           </div>
-          <button className="w-full border border-[#2d5a27] bg-[#2d5a27] px-4 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all duration-200 ease-out hover:bg-transparent hover:text-[#2d5a27] hover:shadow-[0_8px_20px_rgba(45,90,39,0.18)] active:translate-y-px disabled:cursor-not-allowed disabled:border-[#2d5a27]/20 disabled:bg-[#2d5a27]/20 disabled:text-[#2d5a27]/40 disabled:shadow-none">
+          <Link
+            href="/blend"
+            className="block w-full border border-[#2d5a27] bg-[#2d5a27] px-4 py-3 text-center text-sm font-bold uppercase tracking-widest text-white transition-all duration-200 ease-out hover:bg-transparent hover:text-[#2d5a27] hover:shadow-[0_8px_20px_rgba(45,90,39,0.18)]"
+          >
             Proceed to Blend
-          </button>
+          </Link>
         </div>
       ) : null}
     </div>
