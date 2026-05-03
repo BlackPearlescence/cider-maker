@@ -26,9 +26,9 @@ export const AppleDrawerCard = ({
   return (
     <div
       key={appleId}
-      className="group bg-white border border-[#2d5a27]/10 p-4 hover:border-[#2d5a27]/40 transition-all shadow-sm"
+      className=" w-40 shrink-0 group bg-white border border-[#2d5a27]/10 p-4 hover:border-[#2d5a27]/40 transition-all shadow-sm"
     >
-      <div className="relative aspect-square mb-4 overflow-hidden bg=[#f9f9f9]">
+      <div className="relative h-28 w-full aspect-square mb-4 overflow-hidden bg=[#f9f9f9]">
         <Image
           src={appleImage}
           alt={appleName}
@@ -41,9 +41,7 @@ export const AppleDrawerCard = ({
         <span className="text-[10px] uppercase tracking-tighter opacity-60">
           {appleCategory.replace("_", " ")}
         </span>
-        <h3 className="text-xl font-bold font-serif">{appleName}</h3>
-        <p className="text-xs italic opacity-80">{appleSpecies}</p>
-
+        <h3 className="truncate text-xl font-bold font-serif">{appleName}</h3>
         <div className="flex gap-2 mt-3">
           <span
             className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded-full ${
