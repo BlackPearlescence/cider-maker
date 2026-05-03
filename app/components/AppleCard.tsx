@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AppleCardProps } from "../types";
 import { useBatchStore } from "../stores/useBatchStore";
 import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 export const AppleCard = ({
   key,

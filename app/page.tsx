@@ -3,6 +3,7 @@ import { AppleCard } from "./components/AppleCard";
 import { FilterBar } from "./components/FilterBar";
 import { AppleCategory } from "@prisma/client";
 import { BottomDrawer } from "./components/BottomDrawer";
+import { useBatchStore } from "./stores/useBatchStore";
 
 export default async function Home({
   searchParams,
