@@ -11,12 +11,12 @@ export default async function Home({
         query?: string;
         category?: string;
         flavor?: string;
-        brixMin?: number;
-        brixMax?: number;
-        tanninMin?: number;
-        tanninMax?: number;
-        phMin?: number;
-        phMax?: number;
+        brixMin?: string;
+        brixMax?: string;
+        tanninMin?: string;
+        tanninMax?: string;
+        phMin?: string;
+        phMax?: string;
       }
     | undefined
   >;
@@ -25,17 +25,26 @@ export default async function Home({
   const query = resolvedSearchParams?.query ?? "";
   const category = resolvedSearchParams?.category ?? "";
   const flavor = resolvedSearchParams?.flavor ?? "";
-  const brixMin = resolvedSearchParams?.brixMin ?? "";
-  const brixMax = resolvedSearchParams?.brixMax ?? "";
 
-  const tanninMin = resolvedSearchParams?.tanninMin ?? "";
-  const tanninMax = resolvedSearchParams?.tanninMax ?? "";
+  const rawBrixMin = resolvedSearchParams?.brixMin;
+  const brixMin = rawBrixMin ? parseFloat(rawBrixMin) : undefined;
+  const validBrixMin = Number.isNaN(brixMin) ? undefined : brixMin;
 
-  const phMin = resolvedSearchParams?.phMin ?? "";
-  const phMax = resolvedSearchParams?.phMax ?? "";
+  const brixMax = resolvedSearchParams?.brixMax ?? null;
 
-  const brixFilter: { min?: number; max?: number } = {};
-  if (brixMin != null) brixFilter.min = brixMin;
+  const tanninMin = resolvedSearchParams?.tanninMin ?? null;
+  const tanninMax = resolvedSearchParams?.tanninMax ?? null;
+
+  const phMin = resolvedSearchParams?.phMin ?? null;
+  const phMax = resolvedSearchParams?.phMax ?? null;
+
+  const tanninFilter: { min?: number; max?: number } = {};
+  if (tanninMin != null) tanninFilter.min = tanninMin;
+  if (tanninMax != null) tanninFilter.max = tanninMax;
+
+  const phFilter: { min?: number; max?: number } = {};
+  if (phMin != null) phFilter.min = phMin;
+  if (phMax != null) phFilter.max = phMax;
 
   const apples = await prisma.cultivar.findMany({
     where: {
@@ -48,6 +57,7 @@ export default async function Home({
         },
         category ? { category: category as AppleCategory } : {},
         flavor ? { flavor: { name: flavor } } : {},
+        validBrixMin !== undefined ? { brix: { gte: validBrixMin } } : {},
       ],
     },
     include: { flavor: true },
