@@ -5,17 +5,11 @@ import { useBatchStore } from "../stores/useBatchStore";
 export const AppleDrawerCard = ({
   appleId,
   appleName,
-  appleSpecies,
   appleCategory,
   appleImage,
   appleFlavor,
 }: AppleCardProps) => {
   const removeApple = useBatchStore((state) => state.removeApple);
-  const updatePercentage = useBatchStore((state) => state.updatePercentage);
-  const percentage = useBatchStore(
-    (state) =>
-      state.apples.find((apple) => apple.id === appleId)?.percentage ?? 0,
-  );
 
   const isAdded = useBatchStore((state) =>
     state.apples.some((apple) => apple.id === appleId),
@@ -33,7 +27,7 @@ export const AppleDrawerCard = ({
       key={appleId}
       className=" w-40 shrink-0 group bg-white border border-[#2d5a27]/10 p-4 hover:border-[#2d5a27]/40 transition-all shadow-sm"
     >
-      <div className="relative h-26 w-full aspect-square mb-4 overflow-hidden bg=[#f9f9f9]">
+      <div className="relative h-20 w-full aspect-square mb-4 overflow-hidden bg=[#f9f9f9]">
         <Image
           src={appleImage}
           alt={appleName}

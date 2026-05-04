@@ -3,7 +3,6 @@ import { AppleCard } from "./components/AppleCard";
 import { FilterBar } from "./components/FilterBar";
 import { AppleCategory } from "@prisma/client";
 import { BottomDrawer } from "./components/BottomDrawer";
-import { useBatchStore } from "./stores/useBatchStore";
 
 export default async function Home({
   searchParams,
@@ -91,7 +90,7 @@ export default async function Home({
 
   return (
     <main className="min-h-screen-bg-[#fdfaf5] p-8 text-[#2d5a27]">
-      <header className="mb-12 border-b border-[#2d5a27]/20 pb-6">
+      <header className="mb-12 border-b border-[#2d5a27]/20 pb-8">
         <h1 className="text-4xl font-serif font-bold">Ciderina</h1>
         <p className="text-sm uppercase tracking-widest opacity-70">
           Pomological Database & Blender
@@ -100,7 +99,7 @@ export default async function Home({
 
       <FilterBar />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {apples.map((apple) => (
           <AppleCard
             key={apple.id}

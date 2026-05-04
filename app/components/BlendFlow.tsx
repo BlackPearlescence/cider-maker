@@ -8,30 +8,33 @@ import {
   ReactFlow,
   Background,
   Controls,
+  type Edge,
+  type Node,
   useEdgesState,
   useNodesState,
 } from "@xyflow/react";
 import { BlendCompositionNode } from "./BlendCompositionNode";
+
+const nodeTypes = {
+  blendComposition: BlendCompositionNode,
+};
+
+const initialNodes: Node[] = [
+  {
+    id: "blend-composition",
+    type: "blendComposition",
+    position: { x: 100, y: 100 },
+    data: {},
+  },
+];
+
+const initialEdges: Edge[] = [];
+
 export const BlendFlow = () => {
   const apples = useBatchStore((state) => state.apples);
 
-  const nodeTypes = {
-    blendComposition: BlendCompositionNode,
-  };
-
-  const initialNodes = [
-    {
-      id: "blend-composition",
-      type: "blendComposition",
-      position: { x: 100, y: 100 },
-      data: {},
-    },
-  ];
-
-  const initialEdges = [];
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [edges, , onEdgesChange] = useEdgesState(initialEdges);
   return (
     <div className="flex h-screen flex-col">
       <div>
