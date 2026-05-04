@@ -14,9 +14,11 @@ import {
   useNodesState,
 } from "@xyflow/react";
 import { BlendCompositionNode } from "./BlendCompositionNode";
+import { BlendSummaryNode } from "./BlendSummaryNode";
 
 const nodeTypes = {
   blendComposition: BlendCompositionNode,
+  blendSummary: BlendSummaryNode,
 };
 
 const initialNodes: Node[] = [
@@ -24,6 +26,12 @@ const initialNodes: Node[] = [
     id: "blend-composition",
     type: "blendComposition",
     position: { x: 100, y: 100 },
+    data: {},
+  },
+  {
+    id: "blend-summary",
+    type: "blendSummary",
+    position: { x: 100, y: 150 },
     data: {},
   },
 ];

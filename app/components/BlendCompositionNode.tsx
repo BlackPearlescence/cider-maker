@@ -2,14 +2,7 @@
 
 import { Handle, Position } from "@xyflow/react";
 import { useBatchStore } from "../stores/useBatchStore";
-import {
-  Cell,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Sector,
-  Tooltip,
-} from "recharts";
+import { Pie, PieChart, Sector, Tooltip } from "recharts";
 
 export const BlendCompositionNode = () => {
   const apples = useBatchStore((state) => state.apples);
