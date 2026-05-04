@@ -11,6 +11,11 @@ export const AppleDrawerCard = ({
   appleFlavor,
 }: AppleCardProps) => {
   const removeApple = useBatchStore((state) => state.removeApple);
+  const updatePercentage = useBatchStore((state) => state.updatePercentage);
+  const percentage = useBatchStore(
+    (state) =>
+      state.apples.find((apple) => apple.id === appleId)?.percentage ?? 0,
+  );
 
   const isAdded = useBatchStore((state) =>
     state.apples.some((apple) => apple.id === appleId),
