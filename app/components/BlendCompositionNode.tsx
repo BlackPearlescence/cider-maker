@@ -2,14 +2,40 @@
 
 import { Handle, Position } from "@xyflow/react";
 import { useBatchStore } from "../stores/useBatchStore";
+import {
+  Cell,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Sector,
+  Tooltip,
+} from "recharts";
 
 export const BlendCompositionNode = () => {
   const apples = useBatchStore((state) => state.apples);
   const updateWeight = useBatchStore((state) => state.updateWeight);
   const totalWeight = apples.reduce((sum, apple) => sum + apple.weight, 0);
 
+  const chartData = apples.map((apple) => ({
+    name: apple.name,
+    value: totalWeight > 0 ? (apple.weight / totalWeight) * 100 : 0,
+  }));
+
+  const chartColors = [
+    "#2d5a27", // orchard green
+    "#c0392b", // cider red
+    "#d4a574", // golden apple
+    "#8b4513", // tannin brown
+    "#6a0dad", // bittersharp purple
+    "#f2c94c", // pale gold
+    "#4f8f6f", // leaf green
+    "#a23e48", // deep apple skin
+    "#7b5e3b", // oak
+    "#e07a5f", // warm coral
+  ];
+
   return (
-    <div className="w-[420px] border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-105 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
       <Handle type="source" position={Position.Right} />
 
       <div className="mb-4">
@@ -52,6 +78,30 @@ export const BlendCompositionNode = () => {
             </div>
           );
         })}
+
+        <PieChart width={300} height={250}>
+          <Pie
+            data={chartData}
+            dataKey="value"
+            nameKey="name"
+            innerRadius={50}
+            outerRadius={100}
+            paddingAngle={2}
+            shape={(props) => {
+              const index = props.index ?? 0;
+
+              return (
+                <Sector
+                  {...props}
+                  fill={chartColors[index % chartColors.length]}
+                  stroke="#fdfaf5"
+                  strokeWidth={2}
+                />
+              );
+            }}
+          />
+          <Tooltip />
+        </PieChart>
       </div>
     </div>
   );
