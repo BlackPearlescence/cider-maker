@@ -2,50 +2,25 @@
 
 import { Handle, Position } from "@xyflow/react";
 import { useBatchStore } from "../stores/useBatchStore";
+import { calculateBlendProfile } from "../lib/calculateBlendProfile";
+import { evaluateBlendRules } from "../lib/evaluateBlendRules";
 
 export const BlendSummaryNode = () => {
   const apples = useBatchStore((state) => state.apples);
-
-  const totalWeight = apples.reduce((sum, apple) => sum + apple.weight, 0);
-  const estimatedBrix =
-    totalWeight > 0
-      ? apples.reduce((sum, apple) => sum + apple.brix * apple.weight, 0) /
-        totalWeight
-      : 0;
-
-  const estimatedTannin =
-    totalWeight > 0
-      ? apples.reduce((sum, apple) => sum + apple.tannin * apple.weight, 0) /
-        totalWeight
-      : 0;
-
-  const estimatedPh =
-    totalWeight > 0
-      ? -Math.log10(
-          apples.reduce(
-            (sum, apple) => sum + Math.pow(10, -apple.ph) * apple.weight,
-            0,
-          ) / totalWeight,
-        )
-      : 0;
-
-  const flavorWeights = apples.reduce<Record<string, number>>((acc, apple) => {
-    acc[apple.flavor] = (acc[apple.flavor] ?? 0) + apple.weight;
-    return acc;
-  }, {});
-
-  const flavorDistribution = Object.entries(flavorWeights).map(
-    ([flavor, weight]) => ({
-      flavor,
-      percentage: totalWeight > 0 ? (weight / totalWeight) * 100 : 0,
-    }),
-  );
-
-  console.log(flavorDistribution);
+  const profile = calculateBlendProfile(apples);
+  const {
+    totalWeight,
+    estimatedBrix,
+    estimatedPh,
+    estimatedTannin,
+    estimatedAbv,
+    flavorDistribution,
+  } = profile;
 
   return (
     <div className="w-105 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
       <Handle type="target" position={Position.Bottom} />
+      <Handle type="source" position={Position.Left} />
       <h2 className="font-serif text-xl font-bold">Blend Summary</h2>
       <div>
         <div className="grid grid-cols-[1fr_120px] items-center gap-3">
@@ -61,14 +36,17 @@ export const BlendSummaryNode = () => {
           <span>Estimated pH</span>
           <span>{estimatedPh.toFixed(2)}</span>
 
+          <span>Potential ABV</span>
+          <span>{estimatedAbv.toFixed(2)}%</span>
+
           <span>{"Sweet"}</span>
-          <span>{flavorDistribution[0]?.percentage ?? 0}%</span>
+          <span>{(flavorDistribution.Sweet ?? 0).toFixed(1)}%</span>
           <span>{"Sharp"}</span>
-          <span>{flavorDistribution[1]?.percentage ?? 0}%</span>
+          <span>{(flavorDistribution.Sharp ?? 0).toFixed(1)}%</span>
           <span>{"Bittersweet"}</span>
-          <span>{flavorDistribution[2]?.percentage ?? 0}%</span>
+          <span>{(flavorDistribution.Bittersweet ?? 0).toFixed(1)}%</span>
           <span>{"Bittersharp"}</span>
-          <span>{flavorDistribution[3]?.percentage ?? 0}%</span>
+          <span>{(flavorDistribution.Bittersharp ?? 0).toFixed(1)}%</span>
         </div>
       </div>
     </div>
