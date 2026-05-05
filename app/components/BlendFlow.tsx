@@ -31,12 +31,18 @@ const initialNodes: Node[] = [
   {
     id: "blend-summary",
     type: "blendSummary",
-    position: { x: 100, y: 150 },
+    position: { x: 100, y: 0 },
     data: {},
   },
 ];
 
-const initialEdges: Edge[] = [];
+const initialEdges: Edge[] = [
+  {
+    id: "summary-to-composition",
+    source: "blend-composition",
+    target: "blend-summary",
+  },
+];
 
 export const BlendFlow = () => {
   const apples = useBatchStore((state) => state.apples);
@@ -50,19 +56,20 @@ export const BlendFlow = () => {
         <p>{apples.length} apples selected</p>
         <Link href="/">Return to Selection</Link>
       </div>
-
-      <ReactFlow
-        className="h-full w-full bg-[#fdfaf5]"
-        nodes={nodes}
-        edges={edges}
-        nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        fitView
-      >
-        <Background h-full />
-        <Controls />
-      </ReactFlow>
+      {apples.length > 0 ? (
+        <ReactFlow
+          className="h-full w-full bg-[#fdfaf5]"
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          fitView
+        >
+          <Background h-full />
+          <Controls />
+        </ReactFlow>
+      ) : null}
     </div>
   );
 };
