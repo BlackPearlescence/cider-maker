@@ -17,12 +17,14 @@ import { BlendCompositionNode } from "./BlendCompositionNode";
 import { BlendSummaryNode } from "./BlendSummaryNode";
 import { BlendDirectionNode } from "./BlendDirectionNode";
 import { FruitMustPreparationNode } from "./FruitMustPreparationNode";
+import { PreparedMustForecastNode } from "./PreparedMustForecastNode";
 
 const nodeTypes = {
   blendComposition: BlendCompositionNode,
   blendSummary: BlendSummaryNode,
   blendDirection: BlendDirectionNode,
   fruitMustPreparation: FruitMustPreparationNode,
+  preparedMustForecast: PreparedMustForecastNode,
 };
 
 const initialNodes: Node[] = [
@@ -50,6 +52,12 @@ const initialNodes: Node[] = [
     position: { x: -380, y: 720 },
     data: {},
   },
+  {
+    id: "prepared-must-forecast",
+    type: "preparedMustForecast",
+    position: { x: -380, y: 1380 },
+    data: {},
+  },
 ];
 
 const initialEdges: Edge[] = [
@@ -67,6 +75,11 @@ const initialEdges: Edge[] = [
     id: "direction-to-fruit-must-preparation",
     source: "blend-direction",
     target: "fruit-must-preparation",
+  },
+  {
+    id: "fruit-must-preparation-to-prepared-must-forecast",
+    source: "fruit-must-preparation",
+    target: "prepared-must-forecast",
   },
 ];
 

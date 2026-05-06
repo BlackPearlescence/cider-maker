@@ -1,7 +1,6 @@
 "use client";
 
 import { Handle, Position } from "@xyflow/react";
-import { useState } from "react";
 import { useProcessStore } from "../stores/useProcessStore";
 
 const mustAdjustmentOptions = ["Sugar", "Acid", "Tannin", "Nutrients"] as const;

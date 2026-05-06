@@ -37,10 +37,10 @@ export type FruitMustPreparation = {
   mustAdjustments: string[];
 };
 
-export type FermentationPlan = {};
-export type AgingPlan = {};
-export type FinishingPlan = {};
-export type CarbonationPlan = {};
+export type FermentationPlan = Record<string, never>;
+export type AgingPlan = Record<string, never>;
+export type FinishingPlan = Record<string, never>;
+export type CarbonationPlan = Record<string, never>;
 
 export type ProcessStore = {
   fruitMustPreparation: FruitMustPreparation;
