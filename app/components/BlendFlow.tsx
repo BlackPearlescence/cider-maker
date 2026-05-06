@@ -15,10 +15,12 @@ import {
 } from "@xyflow/react";
 import { BlendCompositionNode } from "./BlendCompositionNode";
 import { BlendSummaryNode } from "./BlendSummaryNode";
+import { BlendDirectionNode } from "./BlendDirectionNode";
 
 const nodeTypes = {
   blendComposition: BlendCompositionNode,
   blendSummary: BlendSummaryNode,
+  blendDirection: BlendDirectionNode,
 };
 
 const initialNodes: Node[] = [
@@ -34,6 +36,12 @@ const initialNodes: Node[] = [
     position: { x: 100, y: 0 },
     data: {},
   },
+  {
+    id: "blend-direction",
+    type: "blendDirection",
+    position: { x: -380, y: 0 },
+    data: {},
+  },
 ];
 
 const initialEdges: Edge[] = [
@@ -41,6 +49,11 @@ const initialEdges: Edge[] = [
     id: "summary-to-composition",
     source: "blend-composition",
     target: "blend-summary",
+  },
+  {
+    id: "summary-to-direction",
+    source: "blend-summary",
+    target: "blend-direction",
   },
 ];
 

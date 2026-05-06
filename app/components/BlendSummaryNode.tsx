@@ -3,7 +3,6 @@
 import { Handle, Position } from "@xyflow/react";
 import { useBatchStore } from "../stores/useBatchStore";
 import { calculateBlendProfile } from "../lib/calculateBlendProfile";
-import { evaluateBlendRules } from "../lib/evaluateBlendRules";
 
 export const BlendSummaryNode = () => {
   const apples = useBatchStore((state) => state.apples);
