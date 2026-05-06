@@ -16,11 +16,13 @@ import {
 import { BlendCompositionNode } from "./BlendCompositionNode";
 import { BlendSummaryNode } from "./BlendSummaryNode";
 import { BlendDirectionNode } from "./BlendDirectionNode";
+import { FruitMustPreparationNode } from "./FruitMustPreparationNode";
 
 const nodeTypes = {
   blendComposition: BlendCompositionNode,
   blendSummary: BlendSummaryNode,
   blendDirection: BlendDirectionNode,
+  fruitMustPreparation: FruitMustPreparationNode,
 };
 
 const initialNodes: Node[] = [
@@ -42,6 +44,12 @@ const initialNodes: Node[] = [
     position: { x: -380, y: 0 },
     data: {},
   },
+  {
+    id: "fruit-must-preparation",
+    type: "fruitMustPreparation",
+    position: { x: -380, y: 720 },
+    data: {},
+  },
 ];
 
 const initialEdges: Edge[] = [
@@ -54,6 +62,11 @@ const initialEdges: Edge[] = [
     id: "summary-to-direction",
     source: "blend-summary",
     target: "blend-direction",
+  },
+  {
+    id: "direction-to-fruit-must-preparation",
+    source: "blend-direction",
+    target: "fruit-must-preparation",
   },
 ];
 

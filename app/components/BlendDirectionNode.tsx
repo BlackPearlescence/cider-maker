@@ -17,7 +17,7 @@ export const BlendDirectionNode = () => {
   const insights = evaluateBlendRules(profile);
 
   return (
-    <div className="w-105 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-150 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
       <Handle type="target" position={Position.Right} />
       <Handle type="source" position={Position.Left} />
 
@@ -28,7 +28,7 @@ export const BlendDirectionNode = () => {
         </p>
       </div>
 
-      <div className="max-h-[460px] space-y-2 overflow-y-auto pr-1">
+      <div className=" space-y-2 overflow-y-auto pr-1 grid grid-cols-3 gap-4">
         {insights.length > 0 ? (
           insights.map((insight) => (
             <div

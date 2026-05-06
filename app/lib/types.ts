@@ -21,3 +21,31 @@ export type BlendRule = {
   when: (profile: BlendProfile) => boolean;
   insight: BlendInsight;
 };
+
+export type FruitMustPreparation = {
+  sortingWashing: "yes" | "no";
+  sweating: "none" | "short" | "medium" | "long";
+  millingMethod: "coarse-grind" | "standard-crush" | "fine-grind";
+  maceration: "none" | "short" | "overnight";
+  prePressSulfite: "none" | "low" | "standard";
+  pressingMethod:
+    | "basket-press"
+    | "rack-and-cloth"
+    | "bladder-press"
+    | "hydraulic-pack";
+  juiceSettling: "none" | "cold-settle" | "room-temp-settle";
+  mustAdjustments: string[];
+};
+
+export type FermentationPlan = {};
+export type AgingPlan = {};
+export type FinishingPlan = {};
+export type CarbonationPlan = {};
+
+export type ProcessStore = {
+  fruitMustPreparation: FruitMustPreparation;
+  fermentationPlan: FermentationPlan;
+  agingPlan: AgingPlan;
+  finishingPlan: FinishingPlan;
+  carbonationPlan: CarbonationPlan;
+};
