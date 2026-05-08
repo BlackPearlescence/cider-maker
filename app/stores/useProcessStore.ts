@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import type { FruitMustPreparation, ProcessStore } from "../lib/types";
+import type {
+  FermentationPlan,
+  FruitMustPreparation,
+  ProcessStore,
+} from "../lib/types";
 
 type ProcessStoreActions = {
   updateFruitMustPreparation: <Key extends keyof FruitMustPreparation>(
@@ -7,6 +11,10 @@ type ProcessStoreActions = {
     value: FruitMustPreparation[Key],
   ) => void;
   toggleMustAdjustment: (adjustment: string) => void;
+  updateFermentationPlan: <Key extends keyof FermentationPlan>(
+    key: Key,
+    value: FermentationPlan[Key],
+  ) => void;
 };
 
 export const useProcessStore = create<ProcessStore & ProcessStoreActions>(
@@ -22,7 +30,15 @@ export const useProcessStore = create<ProcessStore & ProcessStoreActions>(
       mustAdjustments: [],
     },
 
-    fermentationPlan: {},
+    fermentationPlan: {
+      fermentationStyle: "pitched",
+      yeastCategory: "cider",
+      fermentationTemperature: "cool",
+      nutrientPlan: "simple",
+      targetFinish: "dry",
+      vessel: "carboy",
+      primaryDuration: "standard",
+    },
     agingPlan: {},
     finishingPlan: {},
     carbonationPlan: {},
@@ -48,5 +64,13 @@ export const useProcessStore = create<ProcessStore & ProcessStoreActions>(
           },
         };
       }),
+
+    updateFermentationPlan: (key, value) =>
+      set((state) => ({
+        fermentationPlan: {
+          ...state.fermentationPlan,
+          [key]: value,
+        },
+      })),
   }),
 );

@@ -37,7 +37,20 @@ export type FruitMustPreparation = {
   mustAdjustments: string[];
 };
 
-export type FermentationPlan = Record<string, never>;
+export type FermentationPlan = {
+  fermentationStyle:
+    | "wild"
+    | "pitched"
+    | "cider"
+    | "wine"
+    | "champagne"
+    | "ale";
+  fermentationTemperature: "cool" | "room-temp";
+  nutrientPlan: "none" | "simple" | "staggered";
+  targetFinish: "dry" | "off-dry" | "semi-sweet";
+  vessel: "bucket" | "carboy" | "demijohn";
+  primaryDuration: "short" | "standard" | "slow";
+};
 export type AgingPlan = Record<string, never>;
 export type FinishingPlan = Record<string, never>;
 export type CarbonationPlan = Record<string, never>;
