@@ -18,8 +18,8 @@ export const BlendSummaryNode = () => {
 
   return (
     <div className="w-105 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
-      <Handle type="target" position={Position.Bottom} />
-      <Handle type="source" position={Position.Left} />
+      <Handle type="target" position={Position.Left} />
+      <Handle type="source" position={Position.Right} />
       <h2 className="font-serif text-xl font-bold">Blend Summary</h2>
       <div>
         <div className="grid grid-cols-[1fr_120px] items-center gap-3">

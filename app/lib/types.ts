@@ -38,13 +38,8 @@ export type FruitMustPreparation = {
 };
 
 export type FermentationPlan = {
-  fermentationStyle:
-    | "wild"
-    | "pitched"
-    | "cider"
-    | "wine"
-    | "champagne"
-    | "ale";
+  fermentationStyle: "wild" | "pitched";
+  yeastCategory: "none" | "cider" | "wine" | "champagne" | "ale";
   fermentationTemperature: "cool" | "room-temp";
   nutrientPlan: "none" | "simple" | "staggered";
   targetFinish: "dry" | "off-dry" | "semi-sweet";

@@ -19,6 +19,7 @@ import { BlendDirectionNode } from "./BlendDirectionNode";
 import { FruitMustPreparationNode } from "./FruitMustPreparationNode";
 import { PreparedMustForecastNode } from "./PreparedMustForecastNode";
 import { FermentationPlanNode } from "./FermentationPlanNode";
+import { FermentationForecastNode } from "./FermentationForecastNode";
 
 const nodeTypes = {
   blendComposition: BlendCompositionNode,
@@ -27,43 +28,50 @@ const nodeTypes = {
   fruitMustPreparation: FruitMustPreparationNode,
   preparedMustForecast: PreparedMustForecastNode,
   fermentationPlan: FermentationPlanNode,
+  fermentationForecast: FermentationForecastNode,
 };
 
 const initialNodes: Node[] = [
   {
     id: "blend-composition",
     type: "blendComposition",
-    position: { x: 100, y: 100 },
+    position: { x: 0, y: 120 },
     data: {},
   },
   {
     id: "blend-summary",
     type: "blendSummary",
-    position: { x: 100, y: 0 },
+    position: { x: 560, y: 120 },
     data: {},
   },
   {
     id: "blend-direction",
     type: "blendDirection",
-    position: { x: -380, y: 0 },
+    position: { x: 1120, y: 0 },
     data: {},
   },
   {
     id: "fruit-must-preparation",
     type: "fruitMustPreparation",
-    position: { x: -380, y: 720 },
+    position: { x: 1960, y: 120 },
     data: {},
   },
   {
     id: "prepared-must-forecast",
     type: "preparedMustForecast",
-    position: { x: -380, y: 1380 },
+    position: { x: 2520, y: 120 },
     data: {},
   },
   {
     id: "fermentation-plan",
     type: "fermentationPlan",
-    position: { x: -380, y: 1880 },
+    position: { x: 3080, y: 120 },
+    data: {},
+  },
+  {
+    id: "fermentation-forecast",
+    type: "fermentationForecast",
+    position: { x: 3640, y: 120 },
     data: {},
   },
 ];
@@ -93,6 +101,11 @@ const initialEdges: Edge[] = [
     id: "prepared-must-forecast-to-fermentation-plan",
     source: "prepared-must-forecast",
     target: "fermentation-plan",
+  },
+  {
+    id: "fermentation-plan-to-fermentation-forecast",
+    source: "fermentation-plan",
+    target: "fermentation-forecast",
   },
 ];
 

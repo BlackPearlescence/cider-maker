@@ -31,8 +31,8 @@ export const FruitMustPreparationNode = () => {
 
   return (
     <div className="w-115 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
-      <Handle type="target" position={Position.Top} />
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="target" position={Position.Left} />
+      <Handle type="source" position={Position.Right} />
 
       <div className="mb-4">
         <h2 className="font-serif text-xl font-bold">

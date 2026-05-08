@@ -21,8 +21,8 @@ export const FermentationPlanNode = () => {
 
   return (
     <div className="w-115 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
-      <Handle type="target" position={Position.Top} />
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="target" position={Position.Left} />
+      <Handle type="source" position={Position.Right} />
 
       <div className="mb-4">
         <h2 className="font-serif text-xl font-bold">Fermentation Plan</h2>
@@ -38,26 +38,50 @@ export const FermentationPlanNode = () => {
           </span>
           <select
             value={fermentationStyle}
-            onChange={(event) =>
+            onChange={(event) => {
+              const nextStyle = event.target.value as "wild" | "pitched";
               updateFermentationPlan(
                 "fermentationStyle",
-                event.target.value as
-                  | "wild"
-                  | "cider"
-                  | "wine"
-                  | "champagne"
-                  | "ale",
-              )
-            }
+                nextStyle,
+              );
+
+              if (nextStyle === "wild") {
+                updateFermentationPlan("yeastCategory", "none");
+              }
+            }}
             className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
           >
             <option value="wild">Wild / Spontaneous</option>
-            <option value="cider">Cider Yeast</option>
-            <option value="wine">Wine Yeast</option>
-            <option value="champagne">Champagne Yeast</option>
-            <option value="ale">Ale Yeast</option>
+            <option value="pitched">Pitched Yeast</option>
           </select>
         </label>
+
+        {fermentationStyle === "pitched" ? (
+          <label className="grid gap-1 text-sm">
+            <span className="text-xs font-bold uppercase tracking-widest opacity-60">
+              Yeast Category
+            </span>
+            <select
+              value={yeastCategory}
+              onChange={(event) =>
+                updateFermentationPlan(
+                  "yeastCategory",
+                  event.target.value as
+                    | "cider"
+                    | "wine"
+                    | "champagne"
+                    | "ale",
+                )
+              }
+              className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            >
+              <option value="cider">Cider Yeast</option>
+              <option value="wine">Wine Yeast</option>
+              <option value="champagne">Champagne Yeast</option>
+              <option value="ale">Ale Yeast</option>
+            </select>
+          </label>
+        ) : null}
 
         <label className="grid gap-1 text-sm">
           <span className="text-xs font-bold uppercase tracking-widest opacity-60">

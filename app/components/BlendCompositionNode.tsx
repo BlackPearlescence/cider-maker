@@ -29,8 +29,6 @@ export const BlendCompositionNode = () => {
 
   return (
     <div className="w-105 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
-      <Handle type="source" position={Position.Top} />
-
       <Handle type="source" position={Position.Right} />
 
       <div className="mb-4">
