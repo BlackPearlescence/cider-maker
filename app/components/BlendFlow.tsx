@@ -20,6 +20,7 @@ import { FruitMustPreparationNode } from "./FruitMustPreparationNode";
 import { PreparedMustForecastNode } from "./PreparedMustForecastNode";
 import { FermentationPlanNode } from "./FermentationPlanNode";
 import { FermentationForecastNode } from "./FermentationForecastNode";
+import { FinalReportNode } from "./FinalReportNode";
 
 const nodeTypes = {
   blendComposition: BlendCompositionNode,
@@ -29,6 +30,7 @@ const nodeTypes = {
   preparedMustForecast: PreparedMustForecastNode,
   fermentationPlan: FermentationPlanNode,
   fermentationForecast: FermentationForecastNode,
+  finalReport: FinalReportNode,
 };
 
 const initialNodes: Node[] = [
@@ -74,6 +76,12 @@ const initialNodes: Node[] = [
     position: { x: 3640, y: 120 },
     data: {},
   },
+  {
+    id: "final-report",
+    type: "finalReport",
+    position: { x: 4200, y: 40 },
+    data: {},
+  },
 ];
 
 const initialEdges: Edge[] = [
@@ -106,6 +114,11 @@ const initialEdges: Edge[] = [
     id: "fermentation-plan-to-fermentation-forecast",
     source: "fermentation-plan",
     target: "fermentation-forecast",
+  },
+  {
+    id: "fermentation-forecast-to-final-report",
+    source: "fermentation-forecast",
+    target: "final-report",
   },
 ];
 
