@@ -1,8 +1,15 @@
 import { prisma } from "@/prisma/prisma";
 import { AppleCard } from "./components/AppleCard";
 import { FilterBar } from "./components/FilterBar";
-import { AppleCategory } from "@prisma/client";
 import { BottomDrawer } from "./components/BottomDrawer";
+
+const appleCategories = ["CULINARY", "HERITAGE_CIDER", "CRABAPPLE"] as const;
+
+type AppleCategoryFilter = (typeof appleCategories)[number];
+
+const isAppleCategory = (category: string): category is AppleCategoryFilter => {
+  return appleCategories.includes(category as AppleCategoryFilter);
+};
 
 export default async function Home({
   searchParams,
@@ -25,6 +32,7 @@ export default async function Home({
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query ?? "";
   const category = resolvedSearchParams?.category ?? "";
+  const validCategory = isAppleCategory(category) ? category : "";
   const flavor = resolvedSearchParams?.flavor ?? "";
 
   const rawBrixMin = resolvedSearchParams?.brixMin;
@@ -72,7 +80,7 @@ export default async function Home({
             { origin: { contains: query, mode: "insensitive" } },
           ],
         },
-        category ? { category: category as AppleCategory } : {},
+        validCategory ? { category: validCategory } : {},
         flavor ? { flavor: { name: flavor } } : {},
         Object.keys(brixFilter).length > 0 ? { brix: brixFilter } : {},
         Object.keys(tanninFilter).length > 0 ? { tannin: tanninFilter } : {},
