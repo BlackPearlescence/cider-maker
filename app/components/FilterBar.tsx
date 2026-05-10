@@ -111,7 +111,7 @@ export const FilterBar = () => {
         <input
           type="text"
           placeholder="Search by variety or origin..."
-          className="w-full bg-transparent border-b border-[#2d5a27]/30 py-3 text-lg focus:outline-none focus:border-[#2d5a27] transition-colors placeholder:text-[#2d5a27]/40"
+          className="w-full bg-transparent border-b border-[var(--cider-border)] py-3 text-lg focus:outline-none focus:border-[var(--cider-text)] transition-colors placeholder:text-[var(--cider-text)]/40"
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get("query")?.toString()}
         />
@@ -124,8 +124,8 @@ export const FilterBar = () => {
             onClick={() => toggleCategory(cat)}
             className={`px-4 py-2 border transition-all ${
               searchParams.get("category") === cat
-                ? "bg-[#2d5a27] text-white border-[#2d5a27]"
-                : "border-[#2d5a27]/20 text-[#2d5a27] hover:border-[#2d5a27]/60"
+                ? "bg-[var(--cider-text)] text-white border-[var(--cider-text)]"
+                : "border-[var(--cider-border)] text-[var(--cider-text)] hover:border-[var(--cider-border-strong)]"
             }`}
           >
             {cat.replace("_", " ")}
@@ -214,7 +214,7 @@ export const FilterBar = () => {
               step={0.1}
               className="relative flex items-center select-none touch-none w-full h-5"
             >
-              <Slider.Track className="bg-[#fef7e6] relative grow rounded-full h-2">
+              <Slider.Track className="bg-[var(--cider-soft)] relative grow rounded-full h-2">
                 <Slider.Range className="absolute bg-[#d4a574] rounded-full h-full" />
               </Slider.Track>
               <Slider.Thumb className="block w-5 h-5 bg-[#d4a574] border-2 border-white rounded-full shadow" />
@@ -237,7 +237,7 @@ export const FilterBar = () => {
               step={0.01}
               className="relative flex items-center select-none touch-none w-full h-5"
             >
-              <Slider.Track className="bg-[#f5f0e6] relative grow rounded-full h-2">
+              <Slider.Track className="bg-[var(--cider-soft)] relative grow rounded-full h-2">
                 <Slider.Range className="absolute bg-[#8b4513] rounded-full h-full" />
               </Slider.Track>
               <Slider.Thumb className="block w-5 h-5 bg-[#8b4513] border-2 border-white rounded-full shadow" />
@@ -259,7 +259,7 @@ export const FilterBar = () => {
               step={0.1}
               className="relative flex items-center select-none touch-none w-full h-5"
             >
-              <Slider.Track className="bg-[#f0e6ff] relative grow rounded-full h-2">
+              <Slider.Track className="bg-[var(--cider-soft)] relative grow rounded-full h-2">
                 <Slider.Range className="absolute bg-[#6a0dad] rounded-full h-full" />
               </Slider.Track>
               <Slider.Thumb className="block w-5 h-5 bg-[#6a0dad] border-2 border-white rounded-full shadow" />
@@ -273,7 +273,7 @@ export const FilterBar = () => {
               setPHRange([3, 4.5]);
               clearAdvancedParams();
             }}
-            className="px-4 py-2 border border-[#2d5a27]/20 text-[#2d5a27] transition-all hover:bg-[#2d5a27] hover:text-white hover:border-[#2d5a27]"
+            className="px-4 py-2 border border-[var(--cider-border)] text-[var(--cider-text)] transition-all hover:bg-[var(--cider-text)] hover:text-white hover:border-[var(--cider-text)]"
           >
             Reset
           </button>

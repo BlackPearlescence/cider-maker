@@ -1,6 +1,7 @@
 "use client";
 
 import { Handle, Position } from "@xyflow/react";
+import { useRef } from "react";
 import { useBatchStore } from "../stores/useBatchStore";
 import { useProcessStore } from "../stores/useProcessStore";
 import { calculateBlendProfile } from "../lib/calculateBlendProfile";
@@ -9,6 +10,7 @@ import { calculatePreparationEffects } from "../lib/calculatePreparationEffects"
 import { calculateFermentationForecast } from "../lib/calculateFermentationForecast";
 
 export const FinalReportNode = () => {
+  const reportRef = useRef<HTMLDivElement>(null);
   const apples = useBatchStore((state) => state.apples);
   const fruitMustPreparation = useProcessStore(
     (state) => state.fruitMustPreparation,
@@ -17,26 +19,103 @@ export const FinalReportNode = () => {
 
   const blendProfile = calculateBlendProfile(apples);
   const blendInsights = evaluateBlendRules(blendProfile);
-  const preparationForecast =
-    calculatePreparationEffects(fruitMustPreparation);
+  const preparationForecast = calculatePreparationEffects(fruitMustPreparation);
   const fermentationForecast = calculateFermentationForecast(
     fermentationPlan,
     preparationForecast,
   );
 
+  const exportReportAsPdf = () => {
+    const reportMarkup = reportRef.current?.outerHTML;
+    const printWindow = window.open("", "_blank", "width=900,height=1200");
+
+    if (!reportMarkup || !printWindow) {
+      return;
+    }
+
+    const documentStyles = Array.from(
+      document.querySelectorAll('link[rel="stylesheet"], style'),
+    )
+      .map((styleElement) => styleElement.outerHTML)
+      .join("");
+
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+    };
+
+    printWindow.document.write(`
+      <!doctype html>
+      <html>
+        <head>
+          <title>Final Cider Report</title>
+          ${documentStyles}
+          <style>
+            @page {
+              margin: 0.5in;
+            }
+
+            body {
+              margin: 0;
+              background: #ffffff;
+              color: #2d5a27;
+              font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .ciderina-print-report {
+              width: 100% !important;
+              max-width: none !important;
+              border: 0 !important;
+              box-shadow: none !important;
+              background: #ffffff !important;
+            }
+
+            .ciderina-print-section {
+              break-inside: avoid;
+              page-break-inside: avoid;
+            }
+
+            .no-print,
+            .react-flow__handle {
+              display: none !important;
+            }
+          </style>
+        </head>
+        <body>
+          ${reportMarkup}
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
   return (
-    <div className="w-[760px] border border-[#2d5a27]/20 bg-white p-5 text-[#2d5a27] shadow-sm">
+    <div
+      ref={reportRef}
+      className="ciderina-print-report w-[760px] border border-[var(--cider-border)] bg-[var(--cider-surface)] p-5 text-[var(--cider-text)] shadow-sm"
+    >
       <Handle type="target" position={Position.Left} />
 
-      <div className="mb-5">
-        <h2 className="font-serif text-2xl font-bold">Final Cider Report</h2>
-        <p className="text-xs uppercase tracking-widest opacity-60">
-          Draft production plan and expected profile
-        </p>
+      <div className="mb-5 flex items-start justify-between gap-4">
+        <div>
+          <h2 className="font-serif text-2xl font-bold">Final Cider Report</h2>
+          <p className="text-xs uppercase tracking-widest opacity-60">
+            Draft production plan and expected profile
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={exportReportAsPdf}
+          className="nodrag no-print border border-[var(--cider-border)] bg-[var(--cider-text)] px-4 py-2 text-xs font-bold uppercase tracking-widest text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[var(--cider-text-strong)] hover:shadow-md"
+          aria-label="Export final cider report as PDF"
+        >
+          Export PDF
+        </button>
       </div>
 
       <div className="grid gap-5">
-        <section>
+        <section className="ciderina-print-section">
           <h3 className="mb-2 text-xs font-bold uppercase tracking-widest opacity-60">
             Batch Ingredients
           </h3>
@@ -50,7 +129,9 @@ export const FinalReportNode = () => {
               return (
                 <div key={apple.id} className="contents">
                   <span>{apple.name}</span>
-                  <span className="text-right">{apple.weight.toFixed(1)} lb</span>
+                  <span className="text-right">
+                    {apple.weight.toFixed(1)} lb
+                  </span>
                   <span className="text-right">{percentage.toFixed(1)}%</span>
                 </div>
               );
@@ -58,7 +139,7 @@ export const FinalReportNode = () => {
           </div>
         </section>
 
-        <section className="grid grid-cols-2 gap-4">
+        <section className="ciderina-print-section grid grid-cols-2 gap-4">
           <div>
             <h3 className="mb-2 text-xs font-bold uppercase tracking-widest opacity-60">
               Blend Summary
@@ -95,7 +176,7 @@ export const FinalReportNode = () => {
               {blendInsights.slice(0, 4).map((insight) => (
                 <div
                   key={insight.id}
-                  className="border border-[#2d5a27]/10 bg-[#fdfaf5] p-2"
+                  className="border border-[var(--cider-border)] bg-[var(--cider-bg)] p-2"
                 >
                   <p className="text-sm font-bold">{insight.title}</p>
                   <p className="text-xs leading-5 opacity-75">
@@ -107,14 +188,16 @@ export const FinalReportNode = () => {
           </div>
         </section>
 
-        <section className="grid grid-cols-2 gap-4">
+        <section className="ciderina-print-section grid grid-cols-2 gap-4">
           <div>
             <h3 className="mb-2 text-xs font-bold uppercase tracking-widest opacity-60">
               Fruit & Must Preparation
             </h3>
             <div className="grid grid-cols-[1fr_150px] gap-2 text-sm">
               <span>Sweating</span>
-              <span className="text-right">{fruitMustPreparation.sweating}</span>
+              <span className="text-right">
+                {fruitMustPreparation.sweating}
+              </span>
               <span>Milling</span>
               <span className="text-right">
                 {fruitMustPreparation.millingMethod}
@@ -165,7 +248,7 @@ export const FinalReportNode = () => {
           </div>
         </section>
 
-        <section className="grid grid-cols-2 gap-4">
+        <section className="ciderina-print-section grid grid-cols-2 gap-4">
           <div>
             <h3 className="mb-2 text-xs font-bold uppercase tracking-widest opacity-60">
               Fermentation Plan
@@ -176,15 +259,21 @@ export const FinalReportNode = () => {
                 {fermentationPlan.fermentationStyle}
               </span>
               <span>Yeast</span>
-              <span className="text-right">{fermentationPlan.yeastCategory}</span>
+              <span className="text-right">
+                {fermentationPlan.yeastCategory}
+              </span>
               <span>Temperature</span>
               <span className="text-right">
                 {fermentationPlan.fermentationTemperature}
               </span>
               <span>Nutrients</span>
-              <span className="text-right">{fermentationPlan.nutrientPlan}</span>
+              <span className="text-right">
+                {fermentationPlan.nutrientPlan}
+              </span>
               <span>Target Finish</span>
-              <span className="text-right">{fermentationPlan.targetFinish}</span>
+              <span className="text-right">
+                {fermentationPlan.targetFinish}
+              </span>
               <span>Vessel</span>
               <span className="text-right">{fermentationPlan.vessel}</span>
             </div>
@@ -217,7 +306,7 @@ export const FinalReportNode = () => {
           </div>
         </section>
 
-        <section>
+        <section className="ciderina-print-section">
           <h3 className="mb-2 text-xs font-bold uppercase tracking-widest opacity-60">
             Practical Notes
           </h3>
@@ -227,7 +316,7 @@ export const FinalReportNode = () => {
               .map((note) => (
                 <p
                   key={note}
-                  className="border border-[#2d5a27]/10 bg-[#fdfaf5] p-2 text-xs leading-5 opacity-80"
+                  className="border border-[var(--cider-border)] bg-[var(--cider-bg)] p-2 text-xs leading-5 opacity-80"
                 >
                   {note}
                 </p>

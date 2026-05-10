@@ -15,7 +15,7 @@ export const PreparedMustForecastNode = () => {
   const forecast = calculatePreparationEffects(fruitMustPreparation);
 
   return (
-    <div className="w-115 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-115 border border-[var(--cider-border)] bg-[var(--cider-surface)] p-4 text-[var(--cider-text)] shadow-sm">
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
 
@@ -44,7 +44,7 @@ export const PreparedMustForecastNode = () => {
           </span>
         </div>
 
-        <div className="border border-[#2d5a27]/10 bg-[#fdfaf5] p-3">
+        <div className="border border-[var(--cider-border)] bg-[var(--cider-bg)] p-3">
           <p className="text-xs font-bold uppercase tracking-widest opacity-60">
             Selected Preparation
           </p>
@@ -79,7 +79,7 @@ export const PreparedMustForecastNode = () => {
           </div>
         </div>
 
-        <div className="border-t border-[#2d5a27]/10 pt-3">
+        <div className="border-t border-[var(--cider-border)] pt-3">
           <p className="text-xs font-bold uppercase tracking-widest opacity-60">
             Preparation Forecast
           </p>
@@ -125,7 +125,7 @@ export const PreparedMustForecastNode = () => {
             {forecast.notes.map((note) => (
               <p
                 key={note}
-                className="border border-[#2d5a27]/10 bg-[#fdfaf5] p-2 text-xs leading-5 opacity-80"
+                className="border border-[var(--cider-border)] bg-[var(--cider-bg)] p-2 text-xs leading-5 opacity-80"
               >
                 {note}
               </p>

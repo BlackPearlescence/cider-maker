@@ -136,7 +136,7 @@ export const BlendFlow = () => {
       </div>
       {apples.length > 0 ? (
         <ReactFlow
-          className="h-full w-full bg-[#fdfaf5]"
+          className="h-full w-full bg-[var(--cider-bg)]"
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}

@@ -17,7 +17,7 @@ export const BlendSummaryNode = () => {
   } = profile;
 
   return (
-    <div className="w-105 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-105 border border-[var(--cider-border)] bg-[var(--cider-surface)] p-4 text-[var(--cider-text)] shadow-sm">
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
       <h2 className="font-serif text-xl font-bold">Blend Summary</h2>

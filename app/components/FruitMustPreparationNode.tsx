@@ -30,7 +30,7 @@ export const FruitMustPreparationNode = () => {
   } = fruitMustPreparation;
 
   return (
-    <div className="w-115 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-115 border border-[var(--cider-border)] bg-[var(--cider-surface)] p-4 text-[var(--cider-text)] shadow-sm">
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
 
@@ -56,7 +56,7 @@ export const FruitMustPreparationNode = () => {
                 e.target.value as "yes" | "no",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="yes">Yes</option>
             <option value="no">No</option>
@@ -75,7 +75,7 @@ export const FruitMustPreparationNode = () => {
                 e.target.value as "none" | "short" | "medium" | "long",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="none">None: 0 days</option>
             <option value="short">Short: 2-5 days</option>
@@ -99,7 +99,7 @@ export const FruitMustPreparationNode = () => {
                   | "fine-grind",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="coarse-grind">Coarse Grind</option>
             <option value="standard-crush">Standard Crush</option>
@@ -119,7 +119,7 @@ export const FruitMustPreparationNode = () => {
                 e.target.value as "none" | "short" | "overnight",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="none">None: 0 hours</option>
             <option value="short">Short: 2-6 hours</option>
@@ -139,7 +139,7 @@ export const FruitMustPreparationNode = () => {
                 e.target.value as "none" | "low" | "standard",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="none">None</option>
             <option value="low">Low</option>
@@ -163,7 +163,7 @@ export const FruitMustPreparationNode = () => {
                   | "hydraulic-pack",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="basket-press">Basket Press</option>
             <option value="rack-and-cloth">Rack-and-Cloth Press</option>
@@ -184,7 +184,7 @@ export const FruitMustPreparationNode = () => {
                 e.target.value as "none" | "cold-settle" | "room-temp-settle",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="none">None</option>
             <option value="cold-settle">Cold Settle</option>
@@ -192,7 +192,7 @@ export const FruitMustPreparationNode = () => {
           </select>
         </label>
 
-        <fieldset className="grid gap-2 border border-[#2d5a27]/10 p-3">
+        <fieldset className="grid gap-2 border border-[var(--cider-border)] p-3">
           <legend className="px-1 text-xs font-bold uppercase tracking-widest opacity-60">
             Must Adjustments
           </legend>
@@ -206,7 +206,7 @@ export const FruitMustPreparationNode = () => {
                   type="checkbox"
                   checked={mustAdjustments.includes(adjustment)}
                   onChange={() => toggleMustAdjustment(adjustment)}
-                  className="accent-[#2d5a27]"
+                  className="accent-[var(--cider-text)]"
                 />
                 <span>{adjustment}</span>
               </label>

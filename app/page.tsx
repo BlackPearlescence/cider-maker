@@ -89,8 +89,8 @@ export default async function Home({
   // };
 
   return (
-    <main className="min-h-screen-bg-[#fdfaf5] p-8 text-[#2d5a27]">
-      <header className="mb-12 border-b border-[#2d5a27]/20 pb-8">
+    <main className="min-h-screen bg-[var(--cider-bg)] p-8 text-[var(--cider-text)]">
+      <header className="mb-12 border-b border-[var(--cider-border)] pb-8">
         <h1 className="text-4xl font-serif font-bold">Ciderina</h1>
         <p className="text-sm uppercase tracking-widest opacity-70">
           Pomological Database & Blender
@@ -99,7 +99,7 @@ export default async function Home({
 
       <FilterBar />
 
-      <div className="pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 gap-8 pb-[calc(40vh+7rem)] md:grid-cols-2 lg:grid-cols-4">
         {apples.map((apple) => (
           <AppleCard
             key={apple.id}

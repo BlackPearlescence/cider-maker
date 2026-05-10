@@ -25,9 +25,9 @@ export const AppleDrawerCard = ({
   return (
     <div
       key={appleId}
-      className=" w-40 shrink-0 group bg-white border border-[#2d5a27]/10 p-4 hover:border-[#2d5a27]/40 transition-all shadow-sm"
+      className=" w-40 shrink-0 group bg-[var(--cider-surface)] border border-[var(--cider-border)] p-4 hover:border-[var(--cider-border-strong)] transition-all shadow-sm"
     >
-      <div className="relative h-20 w-full aspect-square mb-4 overflow-hidden bg=[#f9f9f9]">
+      <div className="relative mb-4 aspect-square h-20 w-full overflow-hidden bg-[var(--cider-soft)]">
         <Image
           src={appleImage}
           alt={appleName}
@@ -59,7 +59,7 @@ export const AppleDrawerCard = ({
       </div>
 
       <button
-        className="w-full mt-6 py-2 border border-[#2d5a27] text-[#2d5a27] hover:bg-[#2d5a27] hover:text-white transition-colors text-sm font-bold uppercase tracking-widest"
+        className="w-full mt-6 py-2 border border-[var(--cider-text)] text-[var(--cider-text)] hover:bg-[var(--cider-text)] hover:text-white transition-colors text-sm font-bold uppercase tracking-widest"
         onClick={handleAppleRemove}
       >
         Remove

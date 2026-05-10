@@ -20,7 +20,7 @@ export const FermentationPlanNode = () => {
   } = fermentationPlan;
 
   return (
-    <div className="w-115 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-115 border border-[var(--cider-border)] bg-[var(--cider-surface)] p-4 text-[var(--cider-text)] shadow-sm">
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
 
@@ -49,7 +49,7 @@ export const FermentationPlanNode = () => {
                 updateFermentationPlan("yeastCategory", "none");
               }
             }}
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="wild">Wild / Spontaneous</option>
             <option value="pitched">Pitched Yeast</option>
@@ -73,7 +73,7 @@ export const FermentationPlanNode = () => {
                     | "ale",
                 )
               }
-              className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+              className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
             >
               <option value="cider">Cider Yeast</option>
               <option value="wine">Wine Yeast</option>
@@ -95,7 +95,7 @@ export const FermentationPlanNode = () => {
                 event.target.value as "cool" | "room-temp",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="cool">Cool</option>
             <option value="room-temp">Room Temperature</option>
@@ -114,7 +114,7 @@ export const FermentationPlanNode = () => {
                 event.target.value as "none" | "simple" | "staggered",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="none">None</option>
             <option value="simple">Simple Addition</option>
@@ -134,7 +134,7 @@ export const FermentationPlanNode = () => {
                 event.target.value as "dry" | "off-dry" | "semi-sweet",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="dry">Dry</option>
             <option value="off-dry">Off-Dry</option>
@@ -154,7 +154,7 @@ export const FermentationPlanNode = () => {
                 event.target.value as "bucket" | "carboy" | "demijohn",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="bucket">Bucket</option>
             <option value="carboy">Carboy</option>
@@ -174,7 +174,7 @@ export const FermentationPlanNode = () => {
                 event.target.value as "short" | "standard" | "slow",
               )
             }
-            className="border border-[#2d5a27]/20 bg-transparent px-2 py-2"
+            className="border border-[var(--cider-border)] bg-transparent px-2 py-2"
           >
             <option value="short">Short</option>
             <option value="standard">Standard</option>

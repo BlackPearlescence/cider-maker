@@ -6,9 +6,9 @@ import { calculateBlendProfile } from "../lib/calculateBlendProfile";
 import { evaluateBlendRules } from "../lib/evaluateBlendRules";
 
 const severityStyles = {
-  info: "border-[#2d5a27]/15 bg-[#fdfaf5]",
-  warning: "border-[#d4a574]/50 bg-[#fff8ec]",
-  risk: "border-[#c0392b]/40 bg-[#fff1ef]",
+  info: "border-[var(--cider-border)] bg-[var(--cider-bg)]",
+  warning: "border-[#d4a574]/50 bg-[var(--cider-soft)]",
+  risk: "border-[#c0392b]/40 bg-[var(--cider-soft)]",
 };
 
 export const BlendDirectionNode = () => {
@@ -17,7 +17,7 @@ export const BlendDirectionNode = () => {
   const insights = evaluateBlendRules(profile);
 
   return (
-    <div className="w-150 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-150 border border-[var(--cider-border)] bg-[var(--cider-surface)] p-4 text-[var(--cider-text)] shadow-sm">
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
 
@@ -48,7 +48,7 @@ export const BlendDirectionNode = () => {
                 {insight.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="border border-[#2d5a27]/10 px-1.5 py-0.5 text-[10px] uppercase tracking-widest opacity-60"
+                    className="border border-[var(--cider-border)] px-1.5 py-0.5 text-[10px] uppercase tracking-widest opacity-60"
                   >
                     {tag}
                   </span>
@@ -57,7 +57,7 @@ export const BlendDirectionNode = () => {
             </div>
           ))
         ) : (
-          <div className="border border-[#2d5a27]/10 bg-[#fdfaf5] p-3">
+          <div className="border border-[var(--cider-border)] bg-[var(--cider-bg)] p-3">
             <p className="text-sm font-bold">No direction insights yet</p>
             <p className="mt-1 text-xs leading-5 opacity-75">
               Add apples and set blend weights to generate rule-based forecast

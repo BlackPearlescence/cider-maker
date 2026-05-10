@@ -28,7 +28,7 @@ export const BlendCompositionNode = () => {
   ];
 
   return (
-    <div className="w-105 border border-[#2d5a27]/20 bg-white p-4 text-[#2d5a27] shadow-sm">
+    <div className="w-105 border border-[var(--cider-border)] bg-[var(--cider-surface)] p-4 text-[var(--cider-text)] shadow-sm">
       <Handle type="source" position={Position.Right} />
 
       <div className="mb-4">
@@ -64,7 +64,7 @@ export const BlendCompositionNode = () => {
                   onChange={(event) =>
                     updateWeight(apple.id, Number(event.target.value))
                   }
-                  className="nodrag w-20 border border-[#2d5a27]/20 bg-transparent px-2 py-1 text-right text-sm"
+                  className="nodrag w-20 border border-[var(--cider-border)] bg-transparent px-2 py-1 text-right text-sm"
                 />
                 <span className="text-xs font-bold">lb</span>
               </label>
